@@ -193,9 +193,9 @@ export class TraceContextComponent extends React.Component<TraceContextProps, Tr
             <div style={{ marginLeft: this.state.style.width - this.state.style.chartWidth }}>
                 <TimeAxisComponent unitController={this.unitController} style={this.state.style} addWidgetResizeHandler={this.addWidgetResizeHandler} />
             </div>
-            <ResponsiveGridLayout className='outputs-grid-layout' margin={[0, 5]} isResizable={false}
+            <ResponsiveGridLayout className='outputs-grid-layout' margin={[0, 5]} isResizable={true} isDraggable={true}
                 layouts={{ lg: layouts }} cols={{ lg: 1 }} breakpoints={{ lg: 1200 }} rowHeight={300} draggableHandle={'.widget-handle'}
-                style={{ paddingRight: this.SCROLLBAR_PADDING }}>
+                style={{ paddingRight: this.SCROLLBAR_PADDING, flexGrow:1 }}>
                 {outputs.map(output => {
                     const responseType = output.type;
                     const outputProps: AbstractOutputProps = {
@@ -211,18 +211,19 @@ export class TraceContextComponent extends React.Component<TraceContextProps, Tr
                     };
                     switch (responseType) {
                         case 'TIME_GRAPH':
-                            return <div key={output.id}>
-                                <TimegraphOutputComponent key={output.id} {...outputProps}
+                            return <div key={output.id} style={{ resize: 'both', overflow:'auto'}}>
+                                <TimegraphOutputComponent key={output.id}  {...outputProps}
                                     addWidgetResizeHandler={this.addWidgetResizeHandler} />
                             </div>;
                         case 'TREE_TIME_XY':
-                            return <div key={output.id}>
+                            return <div key={output.id} style={{ resize: 'both', overflow:'auto'}}>
                                 <XYOutputComponent key={output.id} {...outputProps} />
-                            </div>;
+                                </div>;
+
                         case 'TABLE':
-                            return <div key={output.id}>
+                            return <div key={output.id} style={{ resize: 'both', overflow:'auto'}}>
                                 <TableOutputComponent key={output.id} {...outputProps} />
-                            </div>;
+                                </div>;
                         default:
                             break;
                     }

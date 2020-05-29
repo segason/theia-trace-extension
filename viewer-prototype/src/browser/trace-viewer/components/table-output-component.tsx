@@ -23,7 +23,7 @@ export class TableOutputComponent extends AbstractOutputComponent<AbstractOutput
     }
 
     renderMainArea(): React.ReactNode {
-        return <div id='events-table' className='ag-theme-balham-dark' style={{ height: '300px', width: '100%' }}>
+        return <div id='events-table' className='ag-theme-balham-dark' style={{ height: '300px', width: '100%', maxWidth: '100%'}}>
             <AgGridReact
                 columnDefs={this.state.tableColumns}
                 rowData={this.state.tableLines}>
